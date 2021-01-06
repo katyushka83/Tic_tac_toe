@@ -11,10 +11,10 @@ public class GameResults extends JFrame {
     //необходимые поля
     private JLabel welcome;
     private JButton bt1;
-    private static JPanel panel, panel1, panel2, panel3;
+    private JPanel panel, panel1, panel2, panel3;
     private JScrollPane scrollpane;
-    private static JTable table;
-    public GamerTableModel model ;
+    private JTable table;
+    public GamerTableModel model;
 
     public GameResults(GamerTableModel model) {
         super("Результаты");
@@ -30,8 +30,8 @@ public class GameResults extends JFrame {
         setVisible(true);
         //поведение окна на закрытие окна
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
     }
+
     private void gui_setting() {
         //Основная панель
         panel = new JPanel();

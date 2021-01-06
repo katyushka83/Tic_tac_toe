@@ -10,7 +10,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 //окно игры
-class GameFrame extends JFrame {
+public class GameFrame extends JFrame {
 
     // размер игровой доски
     private final int BOARD_SIZE;
@@ -32,10 +32,6 @@ class GameFrame extends JFrame {
     //имена игроков
     public String name1;
     public String name2;
-    Gamer g1;
-    Gamer g2;
-    Gamer g3;
-    Gamer g4;
     //игровая доска
     private GameBoard board;
     //модель таблицы
@@ -46,8 +42,7 @@ class GameFrame extends JFrame {
         setTitle("Крестики-нолики");
         // запрет на изменение окна
         setResizable(false);
-        //расположение по центру
-        setLocationRelativeTo(null);
+
         //видимость окна
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,10 +54,11 @@ class GameFrame extends JFrame {
         }
         this.name1 = name11;
         this.name2 = name22;
-
         //создаем игровую доску с заданным размером
         board = new GameBoard(BOARD_SIZE);
         gui_setting();
+        //расположение по центру
+        setLocationRelativeTo(null);
     }
 
     private void gui_setting() {
@@ -126,7 +122,6 @@ class GameFrame extends JFrame {
         //очистка элементов игровой доски - тех, которые были использованы
         for (int i = 0; i < board.getSize(); i++) {
             for (int j = 0; j < board.getSize(); j++) {
-
                 BoardItem item = board.getItemAt(i, j);
                 if (!item.equals(BoardItem.UNDEFINED)) {
                     JButton button = (JButton) gamePanel.getComponents()[count];
@@ -146,15 +141,12 @@ class GameFrame extends JFrame {
     private class ButtonClickAction extends AbstractAction {
         // индекс ячейки игровой доски
         private int i, j;
-
         public ButtonClickAction(int i, int j) {
             this.i = i;
             this.j = j;
         }
-
         @Override
         public void actionPerformed(ActionEvent e) {
-
             JButton source = (JButton) e.getSource();
             // клик по пустому полю
             if (!board.getItemAt(i, j).equals(BoardItem.UNDEFINED))
@@ -167,7 +159,6 @@ class GameFrame extends JFrame {
             source.setEnabled(false);
             // меняем игрока
             playerIsX = !playerIsX;
-
             // проверка, есть ли победитель
             BoardItem winner = board.getNextWinner(WIN_COUNT);
             if (winner != null && !winner.equals(BoardItem.UNDEFINED)) {
@@ -206,7 +197,8 @@ class GameFrame extends JFrame {
                 }
                 //Если свободных ячеек на поле не нашлось, то выводим сообщение о ничьей
                 if (end){
-                    JOptionPane.showMessageDialog(GameFrame.this, "Ничья! попробуйте сыграть еще раз");
+                    JOptionPane.showMessageDialog(GameFrame.this, "Ничья! попробуйте сыграть еще раз", "Ничья",
+                            JOptionPane.INFORMATION_MESSAGE);
                     clearGamePanel();
                 }
 
@@ -243,7 +235,7 @@ class GameFrame extends JFrame {
         public void actionPerformed(ActionEvent event) {
             JOptionPane.showMessageDialog(GameFrame.this, "Крестики-нолики "
                             + BOARD_SIZE + "x" + BOARD_SIZE
-                            + ". \nДля победы составьте линию из " + WIN_COUNT
+                            + ". \nДля победы необходимо составить линию из " + WIN_COUNT
                             + " крестиков или ноликов.", "О программе",
                     JOptionPane.INFORMATION_MESSAGE);
 

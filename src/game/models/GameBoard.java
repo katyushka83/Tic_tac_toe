@@ -1,6 +1,6 @@
 package game.models;
 import java.util.ArrayList;
-//класс для представления игрового поля
+//класс для представления игры
 public class GameBoard  {
     private int size; //размер доски
     private BoardItem[][] board;
@@ -117,9 +117,9 @@ public class GameBoard  {
         return null;
     }
 
-     //метод для поиска выйгрышной комбинации
+    //метод для поиска выйгрышной комбинации
     private BoardItem search(int i, int j, int cnti, int cntj,
-                                       int winCount) {
+                             int winCount) {
         BoardItem item = board[cnti][cntj];
         if (item.equals(board[i][j])) {
             //список для возможной выигрышной комбинации - добавляем индекс элемента

@@ -9,8 +9,8 @@ import javax.swing.*;
 public class MainFrame extends JFrame {
     //необходимые поля
     private JLabel welcome;
-    private JButton btnPlay, btnRules, btnExit;
-    private static JPanel panel, panel1, panel2;
+    private JButton btnPlay, btnRes, btnExit;
+    private JPanel panel, panel1, panel2;
     public GamerTableModel model =new GamerTableModel() ;
     public MainFrame() {
         super("Крестики-Нолики");
@@ -48,17 +48,17 @@ public class MainFrame extends JFrame {
         btnPlay.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-              //  dispose();
+                //  dispose();
                 SettingsFrame form = new SettingsFrame();
 
             }
         });
         //создаем кнопку
-        btnRules = new JButton("Результаты игр");
-        btnRules.setBackground(Color.decode("#96baff"));
-        btnRules.setFont(font);
+        btnRes = new JButton("Результаты игр");
+        btnRes.setBackground(Color.decode("#96baff"));
+        btnRes.setFont(font);
         //обработчик кнопки
-        btnRules.addActionListener(new ActionListener() {
+        btnRes.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 GameResults form = new GameResults(model);
@@ -80,7 +80,7 @@ public class MainFrame extends JFrame {
         //добавляем все кнопки на панель
         panel1.add(welcome);
         panel2.add(btnPlay);
-        panel2.add(btnRules);
+        panel2.add(btnRes);
         panel2.add(btnExit);
         //занос панелей
         panel.add(panel1);

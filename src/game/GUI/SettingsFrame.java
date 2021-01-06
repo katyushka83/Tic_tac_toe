@@ -9,9 +9,10 @@ public class SettingsFrame extends JFrame {
     //необходимые поля
     private JLabel welcome;
     private JButton btnPlay, cancel;
-    private static JPanel panel, panel1, panel2, panel3;
-    private JTextField txtname1, txtname2, txtboardsize;
+    private JPanel panel, panel1, panel2, panel3;
+    private JTextField txtname1, txtname2;
     private JLabel name1, name2, boardsize;
+    private JComboBox cmbboardsize;
 
     public SettingsFrame() {
         super("Настройка игры");
@@ -52,15 +53,21 @@ public class SettingsFrame extends JFrame {
         name1.setFont(font);
         //создаем поле для имени игрока1 , устанавливаем размер
         txtname1 = new JTextField(10);
-
         name2 = new JLabel("Имя 2-ого игрока: ");
         name2.setFont(font);
         //создаем поле для имени игрока2 , устанавливаем размер
         txtname2 = new JTextField(10);
-        boardsize = new JLabel("N размер поля (n*n): ");
+        boardsize = new JLabel("Размер поля: ");
         boardsize.setFont(font);
-        //создаем поле для размера , устанавливаем размер
-        txtboardsize = new JTextField(10);
+        //создаем комбобокс для выбора размера поля
+        cmbboardsize = new JComboBox();
+        cmbboardsize.setEditable(true);
+        cmbboardsize.addItem(3);
+        cmbboardsize.addItem(4);
+        cmbboardsize.addItem(5);
+        cmbboardsize.addItem(6);
+        cmbboardsize.addItem(7);
+        cmbboardsize.addItem(8);
 
         //нижняя панель
         panel3 = new JPanel();
@@ -73,20 +80,18 @@ public class SettingsFrame extends JFrame {
         btnPlay.setFont(font);
         //обработчик кнопки
         btnPlay.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
-                if ((txtboardsize.getText().trim().length() > 0) && (txtname1.getText().trim().length() > 0) && (txtname2.getText().trim().length() > 0)) {
-                    if (((Integer.parseInt(txtboardsize.getText())) > 2) && (Integer.parseInt(txtboardsize.getText())) < 9) {
-                        try {
-                            GameFrame form = new GameFrame(Integer.parseInt(txtboardsize.getText()), txtname1.getText(), txtname2.getText());
-                            SettingsFrame.this.dispose();
-                            //обработчик ошибок
-                        } catch (Exception ex) {
-                            JOptionPane.showMessageDialog(SettingsFrame.this, "Проверьте введённые данные", "Окно сообщения", JOptionPane.INFORMATION_MESSAGE);
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(SettingsFrame.this, "Размер поля должен быть от 3 до 8", "Окно сообщения", JOptionPane.INFORMATION_MESSAGE);
+                if ( (txtname1.getText().trim().length() > 0) && (txtname2.getText().trim().length() > 0)) {
+                    try {
+                        GameFrame form = new GameFrame(Integer.parseInt(cmbboardsize.getSelectedItem().toString()), txtname1.getText(), txtname2.getText());
+                        SettingsFrame.this.dispose();
+                        //обработчик ошибок
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(SettingsFrame.this, "Проверьте введённые данные", "Окно сообщения", JOptionPane.INFORMATION_MESSAGE);
                     }
+
                 } else {
                     JOptionPane.showMessageDialog(SettingsFrame.this, "Заполните все поля", "Окно сообщения", JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -98,18 +103,18 @@ public class SettingsFrame extends JFrame {
         cancel.setFont(font);
         //обработчик кнопки
         cancel.addActionListener(new ActionListener() {
-             @Override
-             public void actionPerformed(ActionEvent e) {
-                 SettingsFrame.this.dispose();
-             }
-         });
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SettingsFrame.this.dispose();
+            }
+        });
         //добавляем все кнопки на панель
         panel2.add(name1);
         panel2.add(txtname1);
         panel2.add(name2);
         panel2.add(txtname2);
         panel2.add(boardsize);
-        panel2.add(txtboardsize);
+        panel2.add(cmbboardsize);
         panel3.add(btnPlay);
         panel3.add(cancel);
         //занос панелей
